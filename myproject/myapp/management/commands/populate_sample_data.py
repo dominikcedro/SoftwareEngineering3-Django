@@ -4,19 +4,19 @@ from myapp.models import Product, Customer, Order, OrderStatus
 
 class Command(BaseCommand):
     def handle(self, *args, **kwargs):
-        Product.objects.all().delete()
-        Customer.objects.all().delete()
-        Order.objects.all().delete()
+        # Product.objects.all().delete()
+        # Customer.objects.all().delete()
+        # Order.objects.all().delete()
 
         product1 = Product.objects.create(
-            name="testing3_product",
+            name="testing1_product",
             price=19.99,
             available=True
         )
 
         customer1 = Customer.objects.create(
-            name="testing3_name",
-            address="testing2_address"
+            name="testing1name",
+            address="testing1_address"
         )
 
         order1 = Order.objects.create(
