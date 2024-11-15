@@ -32,3 +32,9 @@ class Order(models.Model):
     date = models.DateTimeField()
     status = models.CharField(max_length=20, choices=OrderStatus.choices)
 
+    def calculate_total_price(self):
+        return sum(product.price for product in self.products.all())
+
+    def availability_order(self):
+        return all(product.available for product in self.products.all())
+
