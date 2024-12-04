@@ -1,5 +1,13 @@
 # myproject/myapp/management/commands/populate_sample_data.py
+import os
+import django
 from django.core.management.base import BaseCommand
+
+if not os.environ.get('DJANGO_SETTINGS_MODULE'):
+    os.environ['DJANGO_SETTINGS_MODULE'] = 'myproject.settings'
+
+django.setup()
+
 from myapp.models import Product, Customer, Order, OrderStatus
 
 class Command(BaseCommand):

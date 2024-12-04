@@ -1,43 +1,78 @@
-from django.shortcuts import render
-from django.http import HttpResponse
-import json
-from django.http import JsonResponse
+# myproject/myapp/views.py
+from django.core.exceptions import ValidationError
+from django.http import JsonResponse, HttpResponseBadRequest, HttpResponseNotFound
+from django.views.decorators.http import require_http_methods
 from django.views.decorators.csrf import csrf_exempt
 from .models import Product
-from decimal import Decimal
-
-# Create your views here.
-def hello_world(request):
-    return HttpResponse("Hello world")
+import json
 
 @csrf_exempt
+@require_http_methods(["GET", "POST"])
 def product_list(request):
-    if request.method == 'GET':
-        products = list(Product.objects.values('id', 'name', 'price', 'available'))
-        return JsonResponse(products, safe=False)
-    elif request.method == 'POST':
-        data = json.loads(request.body)
-        name = data.get('name')
-        price = data.get('price')
-        available = data.get('available')
-        product = Product(name=name, price=Decimal(str(price)), available=available)
-        product.full_clean()
-        product.save()
-        return JsonResponse({
-            'id': product.id,
-            'name': product.name,
-            'price': float(product.price),
-            'available': product.available
-        }, status=201
-        )
+    if request.method == "GET":
+        products = Product.objects.all().values()
+        return JsonResponse(list(products), safe=False)
+
+    if request.method == "POST":
+        try:
+            data = json.loads(request.body)
+        except json.JSONDecodeError:
+            return HttpResponseBadRequest("Invalid JSON")
+
+        if not all(key in data for key in ("name", "price", "available")):
+            return HttpResponseBadRequest("Missing necessary fields")
+
+        if data["price"] <= 0:
+            return HttpResponseBadRequest("Price must be positive")
+
+        try:
+            product = Product.objects.create(
+                name=data["name"],
+                price=data["price"],
+                available=data["available"]
+            )
+        except ValidationError as e:
+            return HttpResponseBadRequest(str(e))
+
+        return JsonResponse(
+            {"id": product.id, "name": product.name, "price": product.price, "available": product.available},
+            status=201)
+
 @csrf_exempt
+@require_http_methods(["GET", "PUT", "DELETE"])
 def product_detail(request, product_id):
-    if request.method == 'GET':
+    try:
         product = Product.objects.get(id=product_id)
-        return JsonResponse({
-            'id':product.id,
-            'name': product.name,
-            'price': float(product.price),
-            'available': product.available
-            }
-        )
+    except Product.DoesNotExist:
+        return HttpResponseNotFound("Product not found")
+
+    if request.method == "GET":
+        return JsonResponse(
+            {"id": product.id, "name": product.name, "price": product.price, "available": product.available})
+
+    if request.method == "PUT":
+        try:
+            data = json.loads(request.body)
+        except json.JSONDecodeError:
+            return HttpResponseBadRequest("Invalid JSON")
+
+        if not all(key in data for key in ("name", "price", "available")):
+            return HttpResponseBadRequest("Missing necessary fields")
+
+        if data["price"] <= 0:
+            return HttpResponseBadRequest("Price must be positive")
+
+        try:
+            product.name = data["name"]
+            product.price = data["price"]
+            product.available = data["available"]
+            product.save()
+        except ValidationError as e:
+            return HttpResponseBadRequest(str(e))
+
+        return JsonResponse(
+            {"id": product.id, "name": product.name, "price": product.price, "available": product.available})
+
+    if request.method == "DELETE":
+        product.delete()
+        return JsonResponse({"message": "Product deleted successfully"}, status=204)
