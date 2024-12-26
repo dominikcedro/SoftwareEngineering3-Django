@@ -2,6 +2,8 @@
 from django.db import models
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
+from django.core.validators import MinValueValidator, MaxValueValidator, MaxLengthValidator
+
 
 class OrderStatus(models.TextChoices):
     NEW = 'NEW', 'New'
@@ -10,7 +12,7 @@ class OrderStatus(models.TextChoices):
     COMPLETED = 'COMPLETED', 'Completed'
 
 def validate_positive(value):
-    if value <= 0:
+    if value < 0:
         raise ValidationError(
             _("%(value)s is not positive"),
             params={"value": value},
@@ -18,8 +20,8 @@ def validate_positive(value):
 
 class Product(models.Model):
     id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=255)
-    price = models.DecimalField(max_digits=10, decimal_places=2, default=0, validators=[validate_positive])
+    name = models.CharField(max_length=255, validators=[MaxLengthValidator(255)])
+    price = models.DecimalField(max_digits=10, decimal_places=2, default=0, validators=[MinValueValidator(0), MaxValueValidator(1000000)])
     available = models.BooleanField(default=True)
 
 class Customer(models.Model):
@@ -29,7 +31,7 @@ class Customer(models.Model):
 
 class Order(models.Model):
     id = models.AutoField(primary_key=True)
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, null=False)
     products = models.ManyToManyField(Product)
     date = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=20, choices=OrderStatus.choices)
