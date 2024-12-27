@@ -1,4 +1,6 @@
 # myproject/myapp/models.py
+from decimal import Decimal
+
 from django.db import models
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
@@ -21,7 +23,7 @@ def validate_positive(value):
 class Product(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=255, validators=[MaxLengthValidator(255)])
-    price = models.DecimalField(max_digits=10, decimal_places=2, default=0, validators=[MinValueValidator(0), MaxValueValidator(1000000)])
+    price = models.DecimalField(max_digits=10, decimal_places=2, default=0, validators=[MinValueValidator(Decimal(0.0)), MaxValueValidator(Decimal(1000000.0))])
     available = models.BooleanField(default=True)
 
 class Customer(models.Model):
