@@ -1,6 +1,7 @@
 from django.test import TestCase
-from ..models import Product, Customer, Order
+from ..models import Product, Customer, Order, OrderStatus
 from django.core.exceptions import ValidationError
+
 
 class ProductModelTest(TestCase):
     def test_create_product_with_valid_data(self):
@@ -85,9 +86,6 @@ class CustomerModelTest(TestCase):
         temp_customer = Customer.objects.create(name=NAME_BORDER_LONG, address='123 Main St')
         self.assertEqual(temp_customer.name, NAME_BORDER_LONG)
 
-from django.test import TestCase
-from ..models import Product, Customer, Order, OrderStatus
-from django.core.exceptions import ValidationError
 
 class OrderModelTest(TestCase):
     def setUp(self):
