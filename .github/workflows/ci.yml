@@ -40,3 +40,6 @@ jobs:
           git push origin master
         env:
           GITHUB_TOKEN: ${{ secrets.SCRT_TOKEN }}
+
+
+# comment dommy

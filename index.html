@@ -4,7 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>API Documentation</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/3.50.0/swagger-ui.css" />
+<link rel="stylesheet"
+
+href="https://cdnjs.cloudflare.com/ajax/libs /swagger-ui/3.50.0/swagger-ui.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/3.50.0/swagger-ui-bundle.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/3.50.0/swagger-ui-standalone-preset.js"></script>
 </head>
@@ -12,13 +14,13 @@
 <div id="swagger-ui"></div>
 <script>
 const ui = SwaggerUIBundle({
-  url: "docs.json",
-  dom_id: '#swagger-ui',
-  deepLinking: true,
-  presets: [
-    SwaggerUIBundle.presets.apis,
-    SwaggerUIBundle.plugins.DownloadUrl
-  ]
+url: "docs.json",
+dom_id: '#swagger-ui',
+deepLinking: true,
+presets: [
+SwaggerUIBundle.presets.apis,
+SwaggerUIBundle.plugins.DownloadUrl
+]
 });
 </script>
 </body>
