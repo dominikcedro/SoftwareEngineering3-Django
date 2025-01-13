@@ -6,9 +6,9 @@ info:
 paths:
   /api/customers/:
     get:
-      operationId: api_customers_list
+      operationId: customers_list
       tags:
-      - api
+      - customers
       security:
       - jwtAuth: []
       responses:
@@ -21,9 +21,9 @@ paths:
                   $ref: '#/components/schemas/Customer'
           description: ''
     post:
-      operationId: api_customers_create
+      operationId: customers_create
       tags:
-      - api
+      - customers
       requestBody:
         content:
           application/json:
@@ -47,7 +47,7 @@ paths:
           description: ''
   /api/customers/{id}/:
     get:
-      operationId: api_customers_retrieve
+      operationId: customers_retrieve
       parameters:
       - in: path
         name: id
@@ -56,7 +56,7 @@ paths:
         description: A unique integer value identifying this customer.
         required: true
       tags:
-      - api
+      - customers
       security:
       - jwtAuth: []
       responses:
@@ -67,7 +67,7 @@ paths:
                 $ref: '#/components/schemas/Customer'
           description: ''
     put:
-      operationId: api_customers_update
+      operationId: customers_update
       parameters:
       - in: path
         name: id
@@ -76,7 +76,7 @@ paths:
         description: A unique integer value identifying this customer.
         required: true
       tags:
-      - api
+      - customers
       requestBody:
         content:
           application/json:
@@ -99,7 +99,7 @@ paths:
                 $ref: '#/components/schemas/Customer'
           description: ''
     patch:
-      operationId: api_customers_partial_update
+      operationId: customers_partial_update
       parameters:
       - in: path
         name: id
@@ -108,7 +108,7 @@ paths:
         description: A unique integer value identifying this customer.
         required: true
       tags:
-      - api
+      - customers
       requestBody:
         content:
           application/json:
@@ -130,7 +130,7 @@ paths:
                 $ref: '#/components/schemas/Customer'
           description: ''
     delete:
-      operationId: api_customers_destroy
+      operationId: customers_destroy
       parameters:
       - in: path
         name: id
@@ -139,7 +139,7 @@ paths:
         description: A unique integer value identifying this customer.
         required: true
       tags:
-      - api
+      - customers
       security:
       - jwtAuth: []
       responses:
@@ -147,9 +147,9 @@ paths:
           description: No response body
   /api/orders/:
     get:
-      operationId: api_orders_list
+      operationId: orders_list
       tags:
-      - api
+      - orders
       security:
       - jwtAuth: []
       responses:
@@ -162,9 +162,9 @@ paths:
                   $ref: '#/components/schemas/Order'
           description: ''
     post:
-      operationId: api_orders_create
+      operationId: orders_create
       tags:
-      - api
+      - orders
       requestBody:
         content:
           application/json:
@@ -188,7 +188,7 @@ paths:
           description: ''
   /api/orders/{id}/:
     get:
-      operationId: api_orders_retrieve
+      operationId: orders_retrieve
       parameters:
       - in: path
         name: id
@@ -197,7 +197,7 @@ paths:
         description: A unique integer value identifying this order.
         required: true
       tags:
-      - api
+      - orders
       security:
       - jwtAuth: []
       responses:
@@ -208,7 +208,7 @@ paths:
                 $ref: '#/components/schemas/Order'
           description: ''
     put:
-      operationId: api_orders_update
+      operationId: orders_update
       parameters:
       - in: path
         name: id
@@ -217,7 +217,7 @@ paths:
         description: A unique integer value identifying this order.
         required: true
       tags:
-      - api
+      - orders
       requestBody:
         content:
           application/json:
@@ -240,7 +240,7 @@ paths:
                 $ref: '#/components/schemas/Order'
           description: ''
     patch:
-      operationId: api_orders_partial_update
+      operationId: orders_partial_update
       parameters:
       - in: path
         name: id
@@ -249,7 +249,7 @@ paths:
         description: A unique integer value identifying this order.
         required: true
       tags:
-      - api
+      - orders
       requestBody:
         content:
           application/json:
@@ -271,7 +271,7 @@ paths:
                 $ref: '#/components/schemas/Order'
           description: ''
     delete:
-      operationId: api_orders_destroy
+      operationId: orders_destroy
       parameters:
       - in: path
         name: id
@@ -280,7 +280,7 @@ paths:
         description: A unique integer value identifying this order.
         required: true
       tags:
-      - api
+      - orders
       security:
       - jwtAuth: []
       responses:
@@ -288,9 +288,9 @@ paths:
           description: No response body
   /api/products/:
     get:
-      operationId: api_products_list
+      operationId: products_list
       tags:
-      - api
+      - products
       security:
       - jwtAuth: []
       responses:
@@ -303,9 +303,9 @@ paths:
                   $ref: '#/components/schemas/Product'
           description: ''
     post:
-      operationId: api_products_create
+      operationId: products_create
       tags:
-      - api
+      - products
       requestBody:
         content:
           application/json:
@@ -329,7 +329,7 @@ paths:
           description: ''
   /api/products/{id}/:
     get:
-      operationId: api_products_retrieve
+      operationId: products_retrieve
       parameters:
       - in: path
         name: id
@@ -338,7 +338,7 @@ paths:
         description: A unique integer value identifying this product.
         required: true
       tags:
-      - api
+      - products
       security:
       - jwtAuth: []
       responses:
@@ -349,7 +349,7 @@ paths:
                 $ref: '#/components/schemas/Product'
           description: ''
     put:
-      operationId: api_products_update
+      operationId: products_update
       parameters:
       - in: path
         name: id
@@ -358,7 +358,7 @@ paths:
         description: A unique integer value identifying this product.
         required: true
       tags:
-      - api
+      - products
       requestBody:
         content:
           application/json:
@@ -381,7 +381,7 @@ paths:
                 $ref: '#/components/schemas/Product'
           description: ''
     patch:
-      operationId: api_products_partial_update
+      operationId: products_partial_update
       parameters:
       - in: path
         name: id
@@ -390,7 +390,7 @@ paths:
         description: A unique integer value identifying this product.
         required: true
       tags:
-      - api
+      - products
       requestBody:
         content:
           application/json:
@@ -412,7 +412,7 @@ paths:
                 $ref: '#/components/schemas/Product'
           description: ''
     delete:
-      operationId: api_products_destroy
+      operationId: products_destroy
       parameters:
       - in: path
         name: id
@@ -421,7 +421,7 @@ paths:
         description: A unique integer value identifying this product.
         required: true
       tags:
-      - api
+      - products
       security:
       - jwtAuth: []
       responses:
@@ -429,12 +429,12 @@ paths:
           description: No response body
   /api/token/:
     post:
-      operationId: api_token_create
+      operationId: token_create
       description: |-
         Takes a set of user credentials and returns an access and refresh JSON web
         token pair to prove the authentication of those credentials.
       tags:
-      - api
+      - token
       requestBody:
         content:
           application/json:
@@ -456,12 +456,12 @@ paths:
           description: ''
   /api/token/refresh/:
     post:
-      operationId: api_token_refresh_create
+      operationId: token_refresh_create
       description: |-
         Takes a refresh type JSON web token and returns an access type JSON web
         token if the refresh token is valid.
       tags:
-      - api
+      - token
       requestBody:
         content:
           application/json:
