@@ -12,7 +12,6 @@ class ProductViewSet(viewsets.ModelViewSet):
     filter_backends = [SearchFilter]
     search_fields=['name']
 
-
 class CustomerViewSet(viewsets.ModelViewSet):
     queryset = Customer.objects.all()
     serializer_class = CustomerSerializer
