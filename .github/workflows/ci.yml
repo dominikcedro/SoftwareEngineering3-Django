@@ -39,4 +39,4 @@ jobs:
           git commit -m "Updated documentation"
           git push origin master
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.SCRT_TOKEN }}
